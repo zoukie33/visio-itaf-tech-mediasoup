@@ -418,7 +418,6 @@ async function runProtooWebSocketServer() {
    return;
   }
 
-  console.log('u.query', u.query);
   logger.info(
    'protoo connection request [roomId:%s, peerId:%s, address:%s, origin:%s]',
    roomId,

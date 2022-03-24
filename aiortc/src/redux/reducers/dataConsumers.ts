@@ -8,7 +8,7 @@ const dataConsumers = (state = initialState, action: any): any =>
 		{
 			const roomState = action.payload.state;
 
-			if (roomState === 'closed')
+			if (roomState === 'ferme')
 				return {};
 			else
 				return state;

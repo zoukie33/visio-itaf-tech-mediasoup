@@ -25,7 +25,7 @@ let store: any;
 
 export class RoomClient
 {
-	// Closed flag.
+	// ferme flag.
 	_closed = false;
 
 	// Display name.
@@ -189,7 +189,7 @@ export class RoomClient
 		clearInterval(this._localStatsPeriodicTimer);
 
 		store.dispatch(
-			stateActions.setRoomState('closed'));
+			stateActions.setRoomState('ferme'));
 	}
 
 	async join(): Promise<void>
@@ -204,18 +204,18 @@ export class RoomClient
 		this._protoo = new protooClient.Peer(protooTransport);
 
 		store.dispatch(
-			stateActions.setRoomState('connecting'));
+			stateActions.setRoomState('connexion'));
 
 		this._protoo.on('open', () => this._joinRoom());
 
 		this._protoo.on('failed', () =>
 		{
-			logger.error('WebSocket connection failed');
+			logger.error('WebSocket connexion échouée');
 		});
 
-		this._protoo.on('disconnected', () =>
+		this._protoo.on('deconnecte', () =>
 		{
-			logger.error('WebSocket disconnected');
+			logger.error('WebSocket déconnecté');
 
 			// Close mediasoup Transports.
 			if (this._sendTransport)
@@ -231,7 +231,7 @@ export class RoomClient
 			}
 
 			store.dispatch(
-				stateActions.setRoomState('closed'));
+				stateActions.setRoomState('ferme'));
 		});
 
 		this._protoo.on('close', () =>
@@ -447,14 +447,14 @@ export class RoomClient
 										break;
 									}
 
-									logger.debug(`${sendingPeer.displayName} says: "${message}"`);
+									logger.debug(`${sendingPeer.displayName} dit: "${message}"`);
 
 									break;
 								}
 
 								case 'bot':
 								{
-									logger.debug(`message from Bot: "${message}"`);
+									logger.debug(`message du Bot: "${message}"`);
 
 									break;
 								}
@@ -720,7 +720,7 @@ export class RoomClient
 
 			this._micProducer.on('trackended', () =>
 			{
-				logger.error('Microphone disconnected!');
+				logger.error('Microphone deconnecte!');
 
 				this.disableMic()
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -873,7 +873,7 @@ export class RoomClient
 
 			this._webcamProducer.on('trackended', () =>
 			{
-				logger.error('Webcam disconnected!');
+				logger.error('Webcam deconnecte!');
 
 				this.disableWebcam()
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -1011,7 +1011,7 @@ export class RoomClient
 
 			this._webcamProducer.on('trackended', () =>
 			{
-				logger.error('Webcam disconnected!');
+				logger.error('Webcam deconnecte!');
 
 				this.disableWebcam()
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -1750,7 +1750,7 @@ export class RoomClient
 				});
 
 			store.dispatch(
-				stateActions.setRoomState('connected'));
+				stateActions.setRoomState('connecte'));
 
 			// Clean all the existing notifcations.
 			store.dispatch(
@@ -1780,7 +1780,7 @@ export class RoomClient
 
 				this._sendTransport.on('connectionstatechange', (connectionState) =>
 				{
-					if (connectionState === 'connected')
+					if (connectionState === 'connecte')
 					{
 						this.enableChatDataProducer();
 						this.enableBotDataProducer();

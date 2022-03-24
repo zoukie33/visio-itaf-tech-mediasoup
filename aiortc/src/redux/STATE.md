@@ -5,7 +5,7 @@
   room :
   {
     url             : 'https://demo.mediasoup.org/?roomId=d0el8y34',
-    state           : 'connected', // new/connecting/connected/closed
+    state           : 'connecte', // nouveau/connexion/connecte/ferme
     activeSpeakerId : 'alice',
     statsPeerId     : null,
     faceDetection   : false
@@ -136,12 +136,12 @@
     {
       id     : 'qweasdw43we',
       type   : 'info' // info/error
-      text   : 'You joined the room'
+      text   : 'Vous avez rejoint la visioconférence'
     },
     {
       id     : 'j7sdhkjjkcc',
       type   : 'error'
-      text   : 'Could not add webcam'
+      text   : 'Impossible d\'ajouter la  webcam'
     }
   ]
 }

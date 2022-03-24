@@ -22,6 +22,7 @@ const Logger = require('./lib/Logger');
 const Room = require('./lib/Room');
 const interactiveServer = require('./lib/interactiveServer');
 const interactiveClient = require('./lib/interactiveClient');
+const axios = require('axios');
 
 const logger = new Logger();
 
@@ -411,6 +412,11 @@ async function runProtooWebSocketServer() {
   const u = url.parse(info.request.url, true);
   const roomId = u.query['roomId'];
   const peerId = u.query['peerId'];
+  const cbUrl =
+   u.protocol +
+   '://' +
+   u.host +
+   u.query['callbackUrl'].split(':roomId').join(roomId);
 
   if (!roomId || !peerId) {
    reject(400, 'Connection request without roomId and/or peerId');
@@ -418,7 +424,8 @@ async function runProtooWebSocketServer() {
    return;
   }
 
-  console.log('u.query', u.query);
+  logger.info('callbackUrl is ', cbUrl);
+
   logger.info(
    'protoo connection request [roomId:%s, peerId:%s, address:%s, origin:%s]',
    roomId,
@@ -433,7 +440,9 @@ async function runProtooWebSocketServer() {
   queue
    .push(async () => {
     const room = await getOrCreateRoom({ roomId });
-
+    if (!room.callbackUrl) {
+     room.callbackUrl = cbUrl;
+    }
     // Accept the protoo WebSocket connection.
     const protooWebSocketTransport = accept();
 
@@ -474,7 +483,17 @@ async function getOrCreateRoom({ roomId }) {
   room = await Room.create({ mediasoupWorker, roomId });
 
   rooms.set(roomId, room);
-  room.on('close', () => rooms.delete(roomId));
+  room.on('close', function () {
+   logger.info('now closing room with roomId ' + roomId);
+   rooms.delete(roomId);
+   if (room.callbackUrl) {
+    try {
+     axios.get(room.callbackUrl);
+    } catch (err) {
+     logger.info('err while sending notification for roomId ' + roomId);
+    }
+   }
+  });
  }
 
  return room;

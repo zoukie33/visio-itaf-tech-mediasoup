@@ -37,7 +37,7 @@ class Room extends React.Component
 						<p className={classnames('text', room.state)}>{room.state}</p>
 					</div>
 
-					<div className='room-link-wrapper'>
+					{/* <div className='room-link-wrapper'>
 						<div className='room-link'>
 							<a
 								className='link'
@@ -66,7 +66,7 @@ class Room extends React.Component
 								invitation link
 							</a>
 						</div>
-					</div>
+					</div> */}
 
 					<Peers />
 
@@ -88,7 +88,7 @@ class Room extends React.Component
 								on       : me.audioOnly,
 								disabled : me.audioOnlyInProgress
 							})}
-							data-tip={'Show/hide participants\' video'}
+							data-tip={'Activer/désactiver la vidéo des participants'}
 							onClick={() =>
 							{
 								me.audioOnly
@@ -101,7 +101,7 @@ class Room extends React.Component
 							className={classnames('button', 'mute-audio', {
 								on : me.audioMuted
 							})}
-							data-tip={'Mute/unmute participants\' audio'}
+							data-tip={'Activer/désactiver l\'audio des participants'}
 							onClick={() =>
 							{
 								me.audioMuted
@@ -114,7 +114,7 @@ class Room extends React.Component
 							className={classnames('button', 'restart-ice', {
 								disabled : me.restartIceInProgress
 							})}
-							data-tip='Restart ICE'
+							data-tip='Relance ICE'
 							onClick={() => roomClient.restartIce()}
 						/>
 					</div>

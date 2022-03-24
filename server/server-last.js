@@ -5,6 +5,8 @@ process.env.DEBUG = process.env.DEBUG || '*INFO* *WARN* *ERROR*';
 
 const config = require('./config');
 
+const validItafClients = require('./clients');
+
 /* eslint-disable no-console */
 console.log('process.env.DEBUG:', process.env.DEBUG);
 console.log('config.js:\n%s', JSON.stringify(config, null, '  '));
@@ -22,7 +24,7 @@ const Logger = require('./lib/Logger');
 const Room = require('./lib/Room');
 const interactiveServer = require('./lib/interactiveServer');
 const interactiveClient = require('./lib/interactiveClient');
-
+const axios = require('axios');
 const logger = new Logger();
 
 // Async queue to manage rooms.
@@ -411,39 +413,71 @@ async function runProtooWebSocketServer() {
   const u = url.parse(info.request.url, true);
   const roomId = u.query['roomId'];
   const peerId = u.query['peerId'];
+  const cid = u.query['clientId'];
+  const c = validItafClients.filter(function (o) {
+   return o.id == cid;
+  });
+  let itafClient;
+  if (c && c.length == 1) {
+   itafClient = c[0];
+  }
 
-  if (!roomId || !peerId) {
-   reject(400, 'Connection request without roomId and/or peerId');
-
+  if (!roomId || !peerId || !itafClient) {
+   logger.info('roomId|peerId|itafClient issue, send 400');
+   reject(400, 'Connection request without roomId, peerId, clientId');
    return;
   }
 
-  console.log('u.query', u.query);
-  logger.info(
-   'protoo connection request [roomId:%s, peerId:%s, address:%s, origin:%s]',
-   roomId,
-   peerId,
-   info.socket.remoteAddress,
-   info.origin
-  );
+  try {
+   logger.info(
+    'now asking validation ' + itafClient.id + ' ' + itafClient.onValidation.url
+   );
+   axios
+    .get(
+     itafClient.onValidation.url + '?roomId=' + roomId + '&peerId=' + peerId,
+     itafClient.onValidation.options
+    )
+    .catch(function (err) {
+     console.log(
+      'err while asking validation',
+      itafClient.onValidation.url + '?roomId=' + roomId + '&peerId=' + peerId
+     );
+    })
+    .then(function (response) {
+     if (response.data && response.data.success) {
+      logger.info(
+       'protoo connection request [roomId:%s, peerId:%s, address:%s, origin:%s]',
+       roomId,
+       peerId,
+       info.socket.remoteAddress,
+       info.origin
+      );
 
-  // Serialize this code into the queue to avoid that two peers connexion at
-  // the same time with the same roomId create two separate rooms with same
-  // roomId.
-  queue
-   .push(async () => {
-    const room = await getOrCreateRoom({ roomId });
+      // Serialize this code into the queue to avoid that two peers connexion at
+      // the same time with the same roomId create two separate rooms with same
+      // roomId.
+      queue
+       .push(async () => {
+        const room = await getOrCreateRoom({ roomId });
 
-    // Accept the protoo WebSocket connection.
-    const protooWebSocketTransport = accept();
+        room.itafClient = itafClient;
+        // Accept the protoo WebSocket connection.
+        const protooWebSocketTransport = accept();
 
-    room.handleProtooConnection({ peerId, protooWebSocketTransport });
-   })
-   .catch((error) => {
-    logger.error('room creation or room joining failed:%o', error);
+        room.handleProtooConnection({ peerId, protooWebSocketTransport });
+       })
+       .catch((error) => {
+        logger.error('room creation or room joining failed:%o', error);
 
-    reject(error);
-   });
+        reject(error);
+       });
+     } else {
+      logger.warn('bim', response.statusCode, response.data);
+     }
+    });
+  } catch (err) {
+   logger.warn(err);
+  }
  });
 }
 
@@ -474,7 +508,35 @@ async function getOrCreateRoom({ roomId }) {
   room = await Room.create({ mediasoupWorker, roomId });
 
   rooms.set(roomId, room);
-  room.on('close', () => rooms.delete(roomId));
+  room.on('close', function () {
+   rooms.delete(roomId);
+   if (room.itafClient) {
+    try {
+     logger.info(
+      'now sending notification ' +
+       room.itafClient.label +
+       ' ' +
+       room.itafClient.onEnd.url
+     );
+     //axios.get('https://staging.domair.fr/visio/notification/end?roomId='+roomId,{auth:{username:'bastide',password:''}})
+     axios
+      .get(
+       room.itafClient.onEnd.url + '?roomId=' + roomId,
+       room.itafClient.onEnd.options
+      )
+      .catch(function (err) {
+       console.log('err while closing room');
+      })
+      .then(function (response) {
+       console.log(response ? response.data : '');
+      });
+    } catch (err) {
+     console.log(err);
+    }
+   } else {
+    logger.info('no room.callbackUrl defined');
+   }
+  });
  }
 
  return room;

@@ -8,7 +8,7 @@ const peers = (state = initialState, action: any): any =>
 		{
 			const roomState = action.payload.state;
 
-			if (roomState === 'closed')
+			if (roomState === 'ferme')
 				return {};
 			else
 				return state;
@@ -67,7 +67,7 @@ const peers = (state = initialState, action: any): any =>
 			// @ts-ignore
 			const peer = state[peerId];
 
-			// NOTE: This means that the Peer was closed before, so it's ok.
+			// NOTE: This means that the Peer was ferme before, so it's ok.
 			if (!peer)
 				return state;
 
@@ -116,7 +116,7 @@ const peers = (state = initialState, action: any): any =>
 			// @ts-ignore
 			const peer = state[peerId];
 
-			// NOTE: This means that the Peer was closed before, so it's ok.
+			// NOTE: This means that the Peer was ferme before, so it's ok.
 			if (!peer)
 				return state;
 

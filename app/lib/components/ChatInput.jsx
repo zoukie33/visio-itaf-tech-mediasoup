@@ -24,20 +24,20 @@ class ChatInput extends React.Component
 	render()
 	{
 		const {
-			connected,
+			connecte,
 			chatDataProducer,
 			botDataProducer
 		} = this.props;
 
 		const { text } = this.state;
 
-		const disabled = !connected || (!chatDataProducer && !botDataProducer);
+		const disabled = !connecte || (!chatDataProducer && !botDataProducer);
 
 		return (
 			<div data-component='ChatInput'>
 				<textarea
 					ref={(elem) => { this._textareaElem = elem; }}
-					placeholder={disabled ? 'Chat unavailable' : 'Write here...'}
+					placeholder={disabled ? 'Chat indisponible' : 'Ecrire ici...'}
 					dir='auto'
 					autoComplete='off'
 					disabled={disabled}
@@ -95,7 +95,7 @@ class ChatInput extends React.Component
 ChatInput.propTypes =
 {
 	roomClient       : PropTypes.any.isRequired,
-	connected        : PropTypes.bool.isRequired,
+	connecte        : PropTypes.bool.isRequired,
 	chatDataProducer : PropTypes.any,
 	botDataProducer  : PropTypes.any
 };
@@ -109,7 +109,7 @@ const mapStateToProps = (state) =>
 		.find((dataProducer) => dataProducer.label === 'bot');
 
 	return {
-		connected : state.room.state === 'connected',
+		connecte : state.room.state === 'connecte',
 		chatDataProducer,
 		botDataProducer
 	};

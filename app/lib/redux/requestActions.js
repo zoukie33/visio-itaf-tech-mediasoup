@@ -2,11 +2,11 @@ import randomString from 'random-string';
 import * as stateActions from './stateActions';
 
 // This returns a redux-thunk action (a function).
-export const notify = ({ type = 'info', text, title, timeout }) =>
+export const notify = ({ type = 'info', text, title, timeout }) => 
 {
-	if (!timeout)
+	if (!timeout) 
 	{
-		switch (type)
+		switch (type) 
 		{
 			case 'info':
 				timeout = 3000;
@@ -17,8 +17,7 @@ export const notify = ({ type = 'info', text, title, timeout }) =>
 		}
 	}
 
-	const notification =
-	{
+	const notification = {
 		id : randomString({ length: 6 }).toLowerCase(),
 		type,
 		title,
@@ -26,11 +25,11 @@ export const notify = ({ type = 'info', text, title, timeout }) =>
 		timeout
 	};
 
-	return (dispatch) =>
+	return (dispatch) => 
 	{
 		dispatch(stateActions.addNotification(notification));
 
-		setTimeout(() =>
+		setTimeout(() => 
 		{
 			dispatch(stateActions.removeNotification(notification.id));
 		}, timeout);

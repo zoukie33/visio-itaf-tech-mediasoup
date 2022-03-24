@@ -1,4 +1,4 @@
-export const setRoomUrl = (url) =>
+export const setRoomUrl = (url) => 
 {
 	return {
 		type    : 'SET_ROOM_URL',
@@ -6,7 +6,7 @@ export const setRoomUrl = (url) =>
 	};
 };
 
-export const setRoomState = (state) =>
+export const setRoomState = (state) => 
 {
 	return {
 		type    : 'SET_ROOM_STATE',
@@ -14,7 +14,7 @@ export const setRoomState = (state) =>
 	};
 };
 
-export const setRoomActiveSpeaker = (peerId) =>
+export const setRoomActiveSpeaker = (peerId) => 
 {
 	return {
 		type    : 'SET_ROOM_ACTIVE_SPEAKER',
@@ -22,7 +22,7 @@ export const setRoomActiveSpeaker = (peerId) =>
 	};
 };
 
-export const setRoomStatsPeerId = (peerId) =>
+export const setRoomStatsPeerId = (peerId) => 
 {
 	return {
 		type    : 'SET_ROOM_STATS_PEER_ID',
@@ -30,7 +30,7 @@ export const setRoomStatsPeerId = (peerId) =>
 	};
 };
 
-export const setRoomFaceDetection = (flag) =>
+export const setRoomFaceDetection = (flag) => 
 {
 	return {
 		type    : 'SET_FACE_DETECTION',
@@ -38,7 +38,7 @@ export const setRoomFaceDetection = (flag) =>
 	};
 };
 
-export const setMe = ({ peerId, displayName, displayNameSet, device }) =>
+export const setMe = ({ peerId, displayName, displayNameSet, device }) => 
 {
 	return {
 		type    : 'SET_ME',
@@ -46,7 +46,7 @@ export const setMe = ({ peerId, displayName, displayNameSet, device }) =>
 	};
 };
 
-export const setMediaCapabilities = ({ canSendMic, canSendWebcam }) =>
+export const setMediaCapabilities = ({ canSendMic, canSendWebcam }) => 
 {
 	return {
 		type    : 'SET_MEDIA_CAPABILITIES',
@@ -54,7 +54,7 @@ export const setMediaCapabilities = ({ canSendMic, canSendWebcam }) =>
 	};
 };
 
-export const setCanChangeWebcam = (flag) =>
+export const setCanChangeWebcam = (flag) => 
 {
 	return {
 		type    : 'SET_CAN_CHANGE_WEBCAM',
@@ -62,7 +62,7 @@ export const setCanChangeWebcam = (flag) =>
 	};
 };
 
-export const setDisplayName = (displayName) =>
+export const setDisplayName = (displayName) => 
 {
 	return {
 		type    : 'SET_DISPLAY_NAME',
@@ -70,7 +70,7 @@ export const setDisplayName = (displayName) =>
 	};
 };
 
-export const setAudioOnlyState = (enabled) =>
+export const setAudioOnlyState = (enabled) => 
 {
 	return {
 		type    : 'SET_AUDIO_ONLY_STATE',
@@ -78,7 +78,7 @@ export const setAudioOnlyState = (enabled) =>
 	};
 };
 
-export const setAudioOnlyInProgress = (flag) =>
+export const setAudioOnlyInProgress = (flag) => 
 {
 	return {
 		type    : 'SET_AUDIO_ONLY_IN_PROGRESS',
@@ -86,7 +86,7 @@ export const setAudioOnlyInProgress = (flag) =>
 	};
 };
 
-export const setAudioMutedState = (enabled) =>
+export const setAudioMutedState = (enabled) => 
 {
 	return {
 		type    : 'SET_AUDIO_MUTED_STATE',
@@ -94,7 +94,7 @@ export const setAudioMutedState = (enabled) =>
 	};
 };
 
-export const setRestartIceInProgress = (flag) =>
+export const setRestartIceInProgress = (flag) => 
 {
 	return {
 		type    : 'SET_RESTART_ICE_IN_PROGRESS',
@@ -102,7 +102,7 @@ export const setRestartIceInProgress = (flag) =>
 	};
 };
 
-export const addProducer = (producer) =>
+export const addProducer = (producer) => 
 {
 	return {
 		type    : 'ADD_PRODUCER',
@@ -110,7 +110,7 @@ export const addProducer = (producer) =>
 	};
 };
 
-export const removeProducer = (producerId) =>
+export const removeProducer = (producerId) => 
 {
 	return {
 		type    : 'REMOVE_PRODUCER',
@@ -118,7 +118,7 @@ export const removeProducer = (producerId) =>
 	};
 };
 
-export const setProducerPaused = (producerId) =>
+export const setProducerPaused = (producerId) => 
 {
 	return {
 		type    : 'SET_PRODUCER_PAUSED',
@@ -126,7 +126,7 @@ export const setProducerPaused = (producerId) =>
 	};
 };
 
-export const setProducerResumed = (producerId) =>
+export const setProducerResumed = (producerId) => 
 {
 	return {
 		type    : 'SET_PRODUCER_RESUMED',
@@ -134,7 +134,7 @@ export const setProducerResumed = (producerId) =>
 	};
 };
 
-export const setProducerTrack = (producerId, track) =>
+export const setProducerTrack = (producerId, track) => 
 {
 	return {
 		type    : 'SET_PRODUCER_TRACK',
@@ -142,7 +142,7 @@ export const setProducerTrack = (producerId, track) =>
 	};
 };
 
-export const setProducerScore = (producerId, score) =>
+export const setProducerScore = (producerId, score) => 
 {
 	return {
 		type    : 'SET_PRODUCER_SCORE',
@@ -150,7 +150,7 @@ export const setProducerScore = (producerId, score) =>
 	};
 };
 
-export const addDataProducer = (dataProducer) =>
+export const addDataProducer = (dataProducer) => 
 {
 	return {
 		type    : 'ADD_DATA_PRODUCER',
@@ -158,7 +158,7 @@ export const addDataProducer = (dataProducer) =>
 	};
 };
 
-export const removeDataProducer = (dataProducerId) =>
+export const removeDataProducer = (dataProducerId) => 
 {
 	return {
 		type    : 'REMOVE_DATA_PRODUCER',
@@ -166,7 +166,7 @@ export const removeDataProducer = (dataProducerId) =>
 	};
 };
 
-export const setWebcamInProgress = (flag) =>
+export const setWebcamInProgress = (flag) => 
 {
 	return {
 		type    : 'SET_WEBCAM_IN_PROGRESS',
@@ -174,7 +174,7 @@ export const setWebcamInProgress = (flag) =>
 	};
 };
 
-export const setShareInProgress = (flag) =>
+export const setShareInProgress = (flag) => 
 {
 	return {
 		type    : 'SET_SHARE_IN_PROGRESS',
@@ -182,7 +182,7 @@ export const setShareInProgress = (flag) =>
 	};
 };
 
-export const addPeer = (peer) =>
+export const addPeer = (peer) => 
 {
 	return {
 		type    : 'ADD_PEER',
@@ -190,7 +190,7 @@ export const addPeer = (peer) =>
 	};
 };
 
-export const removePeer = (peerId) =>
+export const removePeer = (peerId) => 
 {
 	return {
 		type    : 'REMOVE_PEER',
@@ -198,7 +198,7 @@ export const removePeer = (peerId) =>
 	};
 };
 
-export const setPeerDisplayName = (displayName, peerId) =>
+export const setPeerDisplayName = (displayName, peerId) => 
 {
 	return {
 		type    : 'SET_PEER_DISPLAY_NAME',
@@ -206,7 +206,7 @@ export const setPeerDisplayName = (displayName, peerId) =>
 	};
 };
 
-export const addConsumer = (consumer, peerId) =>
+export const addConsumer = (consumer, peerId) => 
 {
 	return {
 		type    : 'ADD_CONSUMER',
@@ -214,7 +214,7 @@ export const addConsumer = (consumer, peerId) =>
 	};
 };
 
-export const removeConsumer = (consumerId, peerId) =>
+export const removeConsumer = (consumerId, peerId) => 
 {
 	return {
 		type    : 'REMOVE_CONSUMER',
@@ -222,7 +222,7 @@ export const removeConsumer = (consumerId, peerId) =>
 	};
 };
 
-export const setConsumerPaused = (consumerId, originator) =>
+export const setConsumerPaused = (consumerId, originator) => 
 {
 	return {
 		type    : 'SET_CONSUMER_PAUSED',
@@ -230,7 +230,7 @@ export const setConsumerPaused = (consumerId, originator) =>
 	};
 };
 
-export const setConsumerResumed = (consumerId, originator) =>
+export const setConsumerResumed = (consumerId, originator) => 
 {
 	return {
 		type    : 'SET_CONSUMER_RESUMED',
@@ -238,7 +238,11 @@ export const setConsumerResumed = (consumerId, originator) =>
 	};
 };
 
-export const setConsumerCurrentLayers = (consumerId, spatialLayer, temporalLayer) =>
+export const setConsumerCurrentLayers = (
+	consumerId,
+	spatialLayer,
+	temporalLayer
+) => 
 {
 	return {
 		type    : 'SET_CONSUMER_CURRENT_LAYERS',
@@ -246,7 +250,11 @@ export const setConsumerCurrentLayers = (consumerId, spatialLayer, temporalLayer
 	};
 };
 
-export const setConsumerPreferredLayers = (consumerId, spatialLayer, temporalLayer) =>
+export const setConsumerPreferredLayers = (
+	consumerId,
+	spatialLayer,
+	temporalLayer
+) => 
 {
 	return {
 		type    : 'SET_CONSUMER_PREFERRED_LAYERS',
@@ -254,7 +262,7 @@ export const setConsumerPreferredLayers = (consumerId, spatialLayer, temporalLay
 	};
 };
 
-export const setConsumerPriority = (consumerId, priority) =>
+export const setConsumerPriority = (consumerId, priority) => 
 {
 	return {
 		type    : 'SET_CONSUMER_PRIORITY',
@@ -262,7 +270,7 @@ export const setConsumerPriority = (consumerId, priority) =>
 	};
 };
 
-export const setConsumerTrack = (consumerId, track) =>
+export const setConsumerTrack = (consumerId, track) => 
 {
 	return {
 		type    : 'SET_CONSUMER_TRACK',
@@ -270,7 +278,7 @@ export const setConsumerTrack = (consumerId, track) =>
 	};
 };
 
-export const setConsumerScore = (consumerId, score) =>
+export const setConsumerScore = (consumerId, score) => 
 {
 	return {
 		type    : 'SET_CONSUMER_SCORE',
@@ -278,7 +286,7 @@ export const setConsumerScore = (consumerId, score) =>
 	};
 };
 
-export const addDataConsumer = (dataConsumer, peerId) =>
+export const addDataConsumer = (dataConsumer, peerId) => 
 {
 	return {
 		type    : 'ADD_DATA_CONSUMER',
@@ -286,7 +294,7 @@ export const addDataConsumer = (dataConsumer, peerId) =>
 	};
 };
 
-export const removeDataConsumer = (dataConsumerId, peerId) =>
+export const removeDataConsumer = (dataConsumerId, peerId) => 
 {
 	return {
 		type    : 'REMOVE_DATA_CONSUMER',
@@ -294,7 +302,7 @@ export const removeDataConsumer = (dataConsumerId, peerId) =>
 	};
 };
 
-export const addNotification = (notification) =>
+export const addNotification = (notification) => 
 {
 	return {
 		type    : 'ADD_NOTIFICATION',
@@ -302,7 +310,7 @@ export const addNotification = (notification) =>
 	};
 };
 
-export const removeNotification = (notificationId) =>
+export const removeNotification = (notificationId) => 
 {
 	return {
 		type    : 'REMOVE_NOTIFICATION',
@@ -310,7 +318,7 @@ export const removeNotification = (notificationId) =>
 	};
 };
 
-export const removeAllNotifications = () =>
+export const removeAllNotifications = () => 
 {
 	return {
 		type : 'REMOVE_ALL_NOTIFICATIONS'
