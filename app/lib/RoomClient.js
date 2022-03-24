@@ -256,7 +256,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: 'WebSocket connexion échouée',
+     text: 'Echec connexion WebSocket ',
     })
    );
   });
@@ -300,7 +300,7 @@ export default class RoomClient {
    switch (request.method) {
     case 'newConsumer': {
      if (!this._consume) {
-      reject(403, 'I do not want to consume');
+      reject(403, 'Jen e veux pas me connecter');
 
       break;
      }
@@ -374,7 +374,7 @@ export default class RoomClient {
       store.dispatch(
        requestActions.notify({
         type: 'error',
-        text: `Error creating a Consumer: ${error}`,
+        text: `Erreur de création de Consumer: ${error}`,
        })
       );
 
@@ -386,13 +386,13 @@ export default class RoomClient {
 
     case 'newDataConsumer': {
      if (!this._consume) {
-      reject(403, 'I do not want to data consume');
+      reject(403, 'Je ne vux pas utiliser mes données cellulaires');
 
       break;
      }
 
      if (!this._useDataChannel) {
-      reject(403, 'I do not want DataChannels');
+      reject(403, 'Je ne veux pas utiliser les DataChannels');
 
       break;
      }
@@ -436,7 +436,7 @@ export default class RoomClient {
        store.dispatch(
         requestActions.notify({
          type: 'error',
-         text: 'DataConsumer ferme',
+         text: 'DataConsumer fermé',
         })
        );
       });
@@ -447,7 +447,7 @@ export default class RoomClient {
        store.dispatch(
         requestActions.notify({
          type: 'error',
-         text: `DataConsumer error: ${error}`,
+         text: `DataConsumer erreur: ${error}`,
         })
        );
       });
@@ -551,7 +551,7 @@ export default class RoomClient {
       store.dispatch(
        requestActions.notify({
         type: 'error',
-        text: `Error creating a DataConsumer: ${error}`,
+        text: `Impossible de créer un DataConsumer: ${error}`,
        })
       );
 
@@ -588,7 +588,7 @@ export default class RoomClient {
 
      store.dispatch(
       requestActions.notify({
-       text: `${peer.displayName} has joined the room`,
+       text: `${peer.displayName} a rejoint la visioconférence`,
       })
      );
 
@@ -730,7 +730,7 @@ export default class RoomClient {
   if (this._micProducer) return;
 
   if (!this._mediasoupDevice.canProduce('audio')) {
-   logger.error('enableMic() | cannot produce audio');
+   logger.error("enableMic() | impossible d'activer l'audio");
 
    return;
   }
@@ -783,7 +783,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: 'Microphone deconnecte!',
+      text: 'Microphone deconnecté!',
      })
     );
 
@@ -795,7 +795,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error enabling microphone: ${error}`,
+     text: `Erreur activation microphone: ${error}`,
     })
    );
 
@@ -820,7 +820,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error closing server-side mic Producer: ${error}`,
+     text: `Erreur de fermeture du server-side micro Producer: ${error}`,
     })
    );
   }
@@ -845,7 +845,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error pausing server-side mic Producer: ${error}`,
+     text: `Erreur de la pause server-side micro Producer: ${error}`,
     })
    );
   }
@@ -868,7 +868,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error resuming server-side mic Producer: ${error}`,
+     text: `Erreur de relance du server-side micro Producer: ${error}`,
     })
    );
   }
@@ -898,7 +898,7 @@ export default class RoomClient {
 
     const { resolution } = this._webcam;
 
-    if (!device) throw new Error('no webcam devices');
+    if (!device) throw new Error('Pas de webcam disponible');
 
     logger.debug('enableWebcam() | calling getUserMedia()');
 
@@ -930,7 +930,9 @@ export default class RoomClient {
     );
 
     if (!codec) {
-     throw new Error('desired H264 codec+configuration is not supported');
+     throw new Error(
+      "Le codec H264 codec+configuration n'est pas disponible sur votre appareil"
+     );
     }
    } else if (this._forceVP9) {
     codec = this._mediasoupDevice.rtpCapabilities.codecs.find(
@@ -938,7 +940,9 @@ export default class RoomClient {
     );
 
     if (!codec) {
-     throw new Error('desired VP9 codec+configuration is not supported');
+     throw new Error(
+      "Le codec VP9 codec+configuration n'est pas disponible sur votre appareil"
+     );
     }
    }
 
@@ -989,7 +993,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: 'Webcam deconnecte!',
+      text: 'Webcam deconnectée!',
      })
     );
 
@@ -1001,7 +1005,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error enabling webcam: ${error}`,
+     text: `Erreur activation webcam: ${error}`,
     })
    );
 
@@ -1028,7 +1032,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error closing server-side webcam Producer: ${error}`,
+     text: `Erreur fermeture server-side webcam Producer: ${error}`,
     })
    );
   }
@@ -1057,14 +1061,14 @@ export default class RoomClient {
    this._webcam.device = this._webcams.get(array[idx]);
 
    logger.debug(
-    'changeWebcam() | new selected webcam [device:%o]',
+    'changeWebcam() | Pas de webcam disponible [device:%o]',
     this._webcam.device
    );
 
    // Reset video resolution to HD.
    this._webcam.resolution = 'hd';
 
-   if (!this._webcam.device) throw new Error('no webcam devices');
+   if (!this._webcam.device) throw new Error('Pas de webcam disponible');
 
    // Closing the current video track before asking for a new one (mobiles do not like
    // having both front/back cameras open at the same time).
@@ -1202,7 +1206,9 @@ export default class RoomClient {
     );
 
     if (!codec) {
-     throw new Error('desired H264 codec+configuration is not supported');
+     throw new Error(
+      "Le codec H264 codec+configuration n'est pas disponible sur votre appareil"
+     );
     }
    } else if (this._forceVP9) {
     codec = this._mediasoupDevice.rtpCapabilities.codecs.find(
@@ -1210,7 +1216,9 @@ export default class RoomClient {
     );
 
     if (!codec) {
-     throw new Error('desired VP9 codec+configuration is not supported');
+     throw new Error(
+      "Le codec VP9 codec+configuration n'est pas disponible sur votre appareil"
+     );
     }
    }
 
@@ -1266,7 +1274,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: 'Share deconnecte!',
+      text: "Partage d'écran déconnecté!",
      })
     );
 
@@ -1279,7 +1287,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: `Error sharing: ${error}`,
+      text: `Erreur de partage d'écran: ${error}`,
      })
     );
    }
@@ -1307,7 +1315,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error closing server-side share Producer: ${error}`,
+     text: `Erreur de fermeture du partage coté serveur: ${error}`,
     })
    );
   }
@@ -1424,7 +1432,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error setting max sending video spatial layer: ${error}`,
+     text: `Erreur de paramètre pour la limite d'envoie de vidéo: ${error}`,
     })
    );
   }
@@ -1458,7 +1466,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error setting Consumer preferred layers: ${error}`,
+     text: `Erreur paramétrage Consumer preferred layers: ${error}`,
     })
    );
   }
@@ -1481,7 +1489,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error setting Consumer priority: ${error}`,
+     text: `Erreur paramétrage Consumer priority: ${error}`,
     })
    );
   }
@@ -1495,7 +1503,7 @@ export default class RoomClient {
 
    store.dispatch(
     requestActions.notify({
-     text: 'Keyframe requested for video consumer',
+     text: "Keyframe demandé pour l'utilisateur de la video",
     })
    );
   } catch (error) {
@@ -1504,7 +1512,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error requesting key frame for Consumer: ${error}`,
+     text: `Erreur de la demande key frame de l'utilisateur: ${error}`,
     })
    );
   }
@@ -1554,7 +1562,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: 'Chat DataProducer ferme',
+      text: 'Chat DataProducer fermé',
      })
     );
    });
@@ -1565,7 +1573,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: `Chat DataProducer error: ${error}`,
+      text: `Chat DataProducer erreur: ${error}`,
      })
     );
    });
@@ -1579,7 +1587,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error enabling chat DataProducer: ${error}`,
+     text: `Erreur activation du chat DataProducer: ${error}`,
     })
    );
 
@@ -1631,7 +1639,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: 'Bot DataProducer ferme',
+      text: 'Bot DataProducer fermé',
      })
     );
    });
@@ -1642,7 +1650,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: `Bot DataProducer error: ${error}`,
+      text: `Bot DataProducer erreur: ${error}`,
      })
     );
    });
@@ -1656,7 +1664,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error enabling bot DataProducer: ${error}`,
+     text: `Erreur à l'activation du bot DataProducer: ${error}`,
     })
    );
 
@@ -1671,7 +1679,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: 'No chat DataProducer',
+     text: 'Pas de chat DataProducer',
     })
    );
 
@@ -1686,7 +1694,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `chat DataProducer.send() failed: ${error}`,
+     text: `chat DataProducer.send() 2choué: ${error}`,
     })
    );
   }
@@ -1699,7 +1707,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: 'No bot DataProducer',
+     text: 'Pas de bot DataProducer',
     })
    );
 
@@ -1714,7 +1722,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `bot DataProducer.send() failed: ${error}`,
+     text: `bot DataProducer.send() échoué: ${error}`,
     })
    );
   }
@@ -1735,11 +1743,11 @@ export default class RoomClient {
 
    store.dispatch(
     requestActions.notify({
-     text: 'Display name changed',
+     text: 'Pseudo affiché modifié',
     })
    );
   } catch (error) {
-   logger.error('changeDisplayName() | failed: %o', error);
+   logger.error('changeDisplayName() | Echec: %o', error);
 
    store.dispatch(
     requestActions.notify({
@@ -1901,7 +1909,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error applying network throttle: ${error}`,
+     text: `Erreur d'application connexion: ${error}`,
     })
    );
   }
@@ -1919,7 +1927,7 @@ export default class RoomClient {
     store.dispatch(
      requestActions.notify({
       type: 'error',
-      text: `Error resetting network throttle: ${error}`,
+      text: `Erreur reset de connexion: ${error}`,
      })
     );
    }
@@ -2123,7 +2131,7 @@ export default class RoomClient {
 
    store.dispatch(
     requestActions.notify({
-     text: 'You are in the room!',
+     text: 'Vous êtes connecté à la visioconférence',
      timeout: 3000,
     })
    );
@@ -2211,11 +2219,15 @@ export default class RoomClient {
 
  _getWebcamType(device) {
   if (/(back|rear)/i.test(device.label)) {
-   logger.debug('_getWebcamType() | it seems to be a back camera');
+   logger.debug(
+    '_getWebcamType() | Il semblerait que ça soit une caméra arrière'
+   );
 
    return 'back';
   } else {
-   logger.debug('_getWebcamType() | it seems to be a front camera');
+   logger.debug(
+    '_getWebcamType() | Il semblerait que ça soit une caméra avant'
+   );
 
    return 'front';
   }
@@ -2231,12 +2243,12 @@ export default class RoomClient {
 
    store.dispatch(stateActions.setConsumerPaused(consumer.id, 'local'));
   } catch (error) {
-   logger.error('_pauseConsumer() | failed:%o', error);
+   logger.error('_pauseConsumer() | Echec:%o', error);
 
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error pausing Consumer: ${error}`,
+     text: `Erreur pause utilisateur: ${error}`,
     })
    );
   }
@@ -2257,7 +2269,7 @@ export default class RoomClient {
    store.dispatch(
     requestActions.notify({
      type: 'error',
-     text: `Error resuming Consumer: ${error}`,
+     text: `Erreur unPause utilisateur: ${error}`,
     })
    );
   }
@@ -2276,7 +2288,7 @@ export default class RoomClient {
    this._externalVideoStream = this._externalVideo.captureStream();
   else if (this._externalVideo.mozCaptureStream)
    this._externalVideoStream = this._externalVideo.mozCaptureStream();
-  else throw new Error('video.captureStream() not supported');
+  else throw new Error("video.captureStream() n'est pas supporté");
 
   return this._externalVideoStream;
  }
