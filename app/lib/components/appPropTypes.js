@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 
 export const Room = PropTypes.shape({
  url: PropTypes.string.isRequired,
- state: PropTypes.oneOf(['nouveau', 'connexion', 'connecte', 'ferme'])
-  .isRequired,
+ state: PropTypes.oneOf(['new', 'connexion', 'connected', 'close']).isRequired,
  activeSpeakerName: PropTypes.string,
 });
 

@@ -40,7 +40,7 @@ const me = (state = initialState, action: any): any =>
 		{
 			const roomState = action.payload.state;
 
-			if (roomState === 'ferme')
+			if (roomState === 'close')
 			{
 				return {
 					...state,

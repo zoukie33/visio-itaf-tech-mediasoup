@@ -19,7 +19,7 @@ const me = (state = initialState, action) => {
   case 'SET_ROOM_STATE': {
    const roomState = action.payload.state;
 
-   if (roomState === 'ferme') {
+   if (roomState === 'close') {
     return {
      ...state,
      webcamInProgress: false,

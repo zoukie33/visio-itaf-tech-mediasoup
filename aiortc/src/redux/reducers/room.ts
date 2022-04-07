@@ -1,7 +1,7 @@
 type InitialState =
 {
 	url: string | null;
-	state: 'nouveau' | 'connexion' | 'connecte' | 'deconnecte' | 'ferme';
+	state: 'new' | 'connexion' | 'connected' | 'disconnected' | 'close';
 	activeSpeakerId: string | null;
 	statsPeerId: string | null;
 	faceDetection: boolean;
@@ -10,7 +10,7 @@ type InitialState =
 const initialState: InitialState =
 {
 	url             : null,
-	state           : 'nouveau',
+	state           : 'new',
 	activeSpeakerId : null,
 	statsPeerId     : null,
 	faceDetection   : false
@@ -31,7 +31,7 @@ const room = (state = initialState, action: any): any =>
 		{
 			const roomState = action.payload.state;
 
-			if (roomState === 'connecte')
+			if (roomState === 'connected')
 				return { ...state, state: roomState };
 			else
 				return { ...state, state: roomState, activeSpeakerId: null, statsPeerId: null };

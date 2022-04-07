@@ -5,7 +5,7 @@ const producers = (state = initialState, action) => {
   case 'SET_ROOM_STATE': {
    const roomState = action.payload.state;
 
-   if (roomState === 'ferme') return {};
+   if (roomState === 'close') return {};
    else return state;
   }
 

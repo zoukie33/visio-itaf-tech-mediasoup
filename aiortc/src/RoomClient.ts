@@ -25,7 +25,7 @@ let store: any;
 
 export class RoomClient
 {
-	// ferme flag.
+	// close flag.
 	_closed = false;
 
 	// Display name.
@@ -189,7 +189,7 @@ export class RoomClient
 		clearInterval(this._localStatsPeriodicTimer);
 
 		store.dispatch(
-			stateActions.setRoomState('ferme'));
+			stateActions.setRoomState('close'));
 	}
 
 	async join(): Promise<void>
@@ -213,7 +213,7 @@ export class RoomClient
 			logger.error('WebSocket connexion échouée');
 		});
 
-		this._protoo.on('deconnecte', () =>
+		this._protoo.on('disconnected', () =>
 		{
 			logger.error('WebSocket déconnecté');
 
@@ -231,7 +231,7 @@ export class RoomClient
 			}
 
 			store.dispatch(
-				stateActions.setRoomState('ferme'));
+				stateActions.setRoomState('close'));
 		});
 
 		this._protoo.on('close', () =>
@@ -720,7 +720,7 @@ export class RoomClient
 
 			this._micProducer.on('trackended', () =>
 			{
-				logger.error('Microphone deconnecte!');
+				logger.error('Microphone disconnected!');
 
 				this.disableMic()
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -873,7 +873,7 @@ export class RoomClient
 
 			this._webcamProducer.on('trackended', () =>
 			{
-				logger.error('Webcam deconnecte!');
+				logger.error('Webcam disconnected!');
 
 				this.disableWebcam()
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -1011,7 +1011,7 @@ export class RoomClient
 
 			this._webcamProducer.on('trackended', () =>
 			{
-				logger.error('Webcam deconnecte!');
+				logger.error('Webcam disconnected!');
 
 				this.disableWebcam()
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -1750,7 +1750,7 @@ export class RoomClient
 				});
 
 			store.dispatch(
-				stateActions.setRoomState('connecte'));
+				stateActions.setRoomState('connected'));
 
 			// Clean all the existing notifcations.
 			store.dispatch(
@@ -1780,7 +1780,7 @@ export class RoomClient
 
 				this._sendTransport.on('connectionstatechange', (connectionState) =>
 				{
-					if (connectionState === 'connecte')
+					if (connectionState === 'connected')
 					{
 						this.enableChatDataProducer();
 						this.enableBotDataProducer();

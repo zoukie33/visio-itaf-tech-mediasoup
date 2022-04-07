@@ -19,7 +19,7 @@ const me = (state = initialState, action) => {
  switch (action.type) {
   case 'SET_ROOM_STATE': {
    const roomState = action.payload.state;
-   if (roomState === 'ferme') {
+   if (roomState === 'close') {
     return Object.assign(Object.assign({}, state), {
      webcamInProgress: false,
      shareInProgress: false,

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 const initialState = {
  url: null,
- state: 'nouveau',
+ state: 'new',
  activeSpeakerId: null,
  statsPeerId: null,
  faceDetection: false,
@@ -15,7 +15,7 @@ const room = (state = initialState, action) => {
   }
   case 'SET_ROOM_STATE': {
    const roomState = action.payload.state;
-   if (roomState === 'connecte')
+   if (roomState === 'connected')
     return Object.assign(Object.assign({}, state), { state: roomState });
    else
     return Object.assign(Object.assign({}, state), {

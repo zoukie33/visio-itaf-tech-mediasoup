@@ -24,14 +24,14 @@ class ChatInput extends React.Component
 	render()
 	{
 		const {
-			connecte,
+			connected,
 			chatDataProducer,
 			botDataProducer
 		} = this.props;
 
 		const { text } = this.state;
 
-		const disabled = !connecte || (!chatDataProducer && !botDataProducer);
+		const disabled = !connected || (!chatDataProducer && !botDataProducer);
 
 		return (
 			<div data-component='ChatInput'>
@@ -95,7 +95,7 @@ class ChatInput extends React.Component
 ChatInput.propTypes =
 {
 	roomClient       : PropTypes.any.isRequired,
-	connecte        : PropTypes.bool.isRequired,
+	connected        : PropTypes.bool.isRequired,
 	chatDataProducer : PropTypes.any,
 	botDataProducer  : PropTypes.any
 };
@@ -109,7 +109,7 @@ const mapStateToProps = (state) =>
 		.find((dataProducer) => dataProducer.label === 'bot');
 
 	return {
-		connecte : state.room.state === 'connecte',
+		connected : state.room.state === 'connected',
 		chatDataProducer,
 		botDataProducer
 	};

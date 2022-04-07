@@ -1,6 +1,6 @@
 const initialState = {
  url: null,
- state: 'nouveau', // nouveau/connexion/connecte/deconnecte/ferme,
+ state: 'new', // new/connexion/connected/disconnected/close,
  activeSpeakerId: null,
  statsPeerId: null,
  faceDetection: false,
@@ -17,7 +17,7 @@ const room = (state = initialState, action) => {
   case 'SET_ROOM_STATE': {
    const roomState = action.payload.state;
 
-   if (roomState === 'connecte') return { ...state, state: roomState };
+   if (roomState === 'connected') return { ...state, state: roomState };
    else
     return {
      ...state,

@@ -78,7 +78,7 @@ class RoomClient {
   externalAudio,
   externalVideo,
  }) {
-  // ferme flag.
+  // close flag.
   this._closed = false;
   // Device info.
   this._device = {
@@ -168,7 +168,7 @@ class RoomClient {
   if (this._recvTransport) this._recvTransport.close();
   // Stop the local stats periodic timer.
   clearInterval(this._localStatsPeriodicTimer);
-  store.dispatch(stateActions.setRoomState('ferme'));
+  store.dispatch(stateActions.setRoomState('close'));
  }
  join() {
   return __awaiter(this, void 0, void 0, function* () {
@@ -184,7 +184,7 @@ class RoomClient {
    this._protoo.on('failed', () => {
     logger.error('WebSocket connexion échouée');
    });
-   this._protoo.on('deconnecte', () => {
+   this._protoo.on('disconnected', () => {
     logger.error('WebSocket deconnecteé');
     // Close mediasoup Transports.
     if (this._sendTransport) {
@@ -195,7 +195,7 @@ class RoomClient {
      this._recvTransport.close();
      this._recvTransport = null;
     }
-    store.dispatch(stateActions.setRoomState('ferme'));
+    store.dispatch(stateActions.setRoomState('close'));
    });
    this._protoo.on('close', () => {
     if (this._closed) return;
@@ -536,7 +536,7 @@ class RoomClient {
      this._micProducer = null;
     });
     this._micProducer.on('trackended', () => {
-     logger.error('Microphone deconnecte!');
+     logger.error('Microphone disconnected!');
      this.disableMic()
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       .catch(() => {});
@@ -640,7 +640,7 @@ class RoomClient {
      this._webcamProducer = null;
     });
     this._webcamProducer.on('trackended', () => {
-     logger.error('Webcam deconnecte!');
+     logger.error('Webcam disconnected!');
      this.disableWebcam()
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       .catch(() => {});
@@ -729,7 +729,7 @@ class RoomClient {
      this._webcamProducer = null;
     });
     this._webcamProducer.on('trackended', () => {
-     logger.error('Webcam deconnecte!');
+     logger.error('Webcam disconnected!');
      this.disableWebcam()
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       .catch(() => {});
@@ -1257,7 +1257,7 @@ class RoomClient {
        ? this._mediasoupDevice.sctpCapabilities
        : undefined,
     });
-    store.dispatch(stateActions.setRoomState('connecte'));
+    store.dispatch(stateActions.setRoomState('connected'));
     // Clean all the existing notifcations.
     store.dispatch(stateActions.removeAllNotifications());
     logger.debug('You are in the room!');
@@ -1283,7 +1283,7 @@ class RoomClient {
      this.enableMic();
      this.enableWebcam();
      this._sendTransport.on('connectionstatechange', (connectionState) => {
-      if (connectionState === 'connecte') {
+      if (connectionState === 'connected') {
        this.enableChatDataProducer();
        this.enableBotDataProducer();
       }

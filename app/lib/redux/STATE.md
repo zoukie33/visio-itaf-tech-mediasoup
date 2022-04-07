@@ -5,7 +5,7 @@
   room :
   {
     url             : 'https://demo.mediasoup.org/?roomId=d0el8y34',
-    state           : 'connecte', // nouveau/connexion/connecte/ferme
+    state           : 'connected', // new/connexion/connected/close
     activeSpeakerId : 'alice',
     statsPeerId     : null,
     faceDetection   : false

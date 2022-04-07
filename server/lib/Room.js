@@ -62,7 +62,7 @@ class Room extends EventEmitter {
   // @type {String}
   this._roomId = roomId;
 
-  // ferme flag.
+  // close flag.
   // @type {Boolean}
   this._closed = false;
 
@@ -217,7 +217,7 @@ class Room extends EventEmitter {
    }
 
    // Iterate and close all mediasoup Transport associated to this Peer, so all
-   // its Producers and Consumers will also be ferme.
+   // its Producers and Consumers will also be close.
    for (const transport of peer.data.transports.values()) {
     transport.close();
    }
@@ -843,7 +843,7 @@ class Room extends EventEmitter {
     });
 
     transport.on('dtlsstatechange', (dtlsState) => {
-     if (dtlsState === 'failed' || dtlsState === 'ferme')
+     if (dtlsState === 'failed' || dtlsState === 'close')
       logger.warn(
        'WebRtcTransport "dtlsstatechange" event [dtlsState:%s]',
        dtlsState

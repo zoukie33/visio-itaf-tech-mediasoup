@@ -5,7 +5,7 @@ const peers = (state = initialState, action) => {
  switch (action.type) {
   case 'SET_ROOM_STATE': {
    const roomState = action.payload.state;
-   if (roomState === 'ferme') return {};
+   if (roomState === 'close') return {};
    else return state;
   }
   case 'ADD_PEER': {
@@ -42,7 +42,7 @@ const peers = (state = initialState, action) => {
    const { consumerId, peerId } = action.payload;
    // @ts-ignore
    const peer = state[peerId];
-   // NOTE: This means that the Peer was ferme before, so it's ok.
+   // NOTE: This means that the Peer was close before, so it's ok.
    if (!peer) return state;
    const idx = peer.consumers.indexOf(consumerId);
    if (idx === -1) throw new Error('Consumer not found');
@@ -72,7 +72,7 @@ const peers = (state = initialState, action) => {
    if (!peerId) return state;
    // @ts-ignore
    const peer = state[peerId];
-   // NOTE: This means that the Peer was ferme before, so it's ok.
+   // NOTE: This means that the Peer was close before, so it's ok.
    if (!peer) return state;
    const idx = peer.dataConsumers.indexOf(dataConsumerId);
    if (idx === -1) throw new Error('DataConsumer not found');

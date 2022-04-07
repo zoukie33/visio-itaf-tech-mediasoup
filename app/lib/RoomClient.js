@@ -77,7 +77,7 @@ export default class RoomClient {
    device.flag
   );
 
-  // ferme flag.
+  // close flag.
   // @type {Boolean}
   this._closed = false;
 
@@ -240,7 +240,7 @@ export default class RoomClient {
 
   if (this._recvTransport) this._recvTransport.close();
 
-  store.dispatch(stateActions.setRoomState('ferme'));
+  store.dispatch(stateActions.setRoomState('close'));
  }
 
  async join() {
@@ -261,7 +261,7 @@ export default class RoomClient {
    );
   });
 
-  this._protoo.on('deconnecte', () => {
+  this._protoo.on('disconnected', () => {
    store.dispatch(
     requestActions.notify({
      type: 'error',
@@ -280,7 +280,7 @@ export default class RoomClient {
     this._recvTransport = null;
    }
 
-   store.dispatch(stateActions.setRoomState('ferme'));
+   store.dispatch(stateActions.setRoomState('close'));
   });
 
   this._protoo.on('close', () => {
@@ -2124,7 +2124,7 @@ export default class RoomClient {
       : undefined,
    });
 
-   store.dispatch(stateActions.setRoomState('connecte'));
+   store.dispatch(stateActions.setRoomState('connected'));
 
    // Clean all the existing notifcations.
    store.dispatch(stateActions.removeAllNotifications());
@@ -2160,7 +2160,7 @@ export default class RoomClient {
      this.enableWebcam();
 
     this._sendTransport.on('connectionstatechange', (connectionState) => {
-     if (connectionState === 'connecte') {
+     if (connectionState === 'connected') {
       this.enableChatDataProducer();
       this.enableBotDataProducer();
      }

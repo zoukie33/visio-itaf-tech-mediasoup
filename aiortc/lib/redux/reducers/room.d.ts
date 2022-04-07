@@ -1,6 +1,6 @@
 declare type InitialState = {
     url: string | null;
-    state: 'nouveau' | 'connexion' | 'connecte' | 'deconnecte' | 'ferme';
+    state: 'new' | 'connexion' | 'connected' | 'disconnected' | 'close';
     activeSpeakerId: string | null;
     statsPeerId: string | null;
     faceDetection: boolean;

@@ -23,7 +23,7 @@ class Me extends React.Component
 	{
 		const {
 			roomClient,
-			connecte,
+			connected,
 			me,
 			audioProducer,
 			videoProducer,
@@ -79,7 +79,7 @@ class Me extends React.Component
 				data-tip={tip}
 				data-tip-disable={!tip}
 			>
-				<If condition={connecte}>
+				<If condition={connected}>
 					<div className='controls'>
 						<div
 							className={classnames('button', 'mic', micState)}
@@ -197,7 +197,7 @@ class Me extends React.Component
 Me.propTypes =
 {
 	roomClient       : PropTypes.any.isRequired,
-	connecte        : PropTypes.bool.isRequired,
+	connected        : PropTypes.bool.isRequired,
 	me               : appPropTypes.Me.isRequired,
 	audioProducer    : appPropTypes.Producer,
 	videoProducer    : appPropTypes.Producer,
@@ -214,7 +214,7 @@ const mapStateToProps = (state) =>
 		producersArray.find((producer) => producer.track.kind === 'video');
 
 	return {
-		connecte     : state.room.state === 'connecte',
+		connected     : state.room.state === 'connected',
 		me            : state.me,
 		audioProducer : audioProducer,
 		videoProducer : videoProducer,

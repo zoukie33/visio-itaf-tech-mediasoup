@@ -5,7 +5,7 @@ const peers = (state = initialState, action) => {
   case 'SET_ROOM_STATE': {
    const roomState = action.payload.state;
 
-   if (roomState === 'ferme') return {};
+   if (roomState === 'close') return {};
    else return state;
   }
 
@@ -51,7 +51,7 @@ const peers = (state = initialState, action) => {
    const { consumerId, peerId } = action.payload;
    const peer = state[peerId];
 
-   // NOTE: This means that the Peer was ferme before, so it's ok.
+   // NOTE: This means that the Peer was close before, so it's ok.
    if (!peer) return state;
 
    const idx = peer.consumers.indexOf(consumerId);
@@ -91,7 +91,7 @@ const peers = (state = initialState, action) => {
 
    const peer = state[peerId];
 
-   // NOTE: This means that the Peer was ferme before, so it's ok.
+   // NOTE: This means that the Peer was close before, so it's ok.
    if (!peer) return state;
 
    const idx = peer.dataConsumers.indexOf(dataConsumerId);
