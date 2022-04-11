@@ -14,7 +14,7 @@ const Notifications = ({ notifications, onClick }) =>
 				notifications.map((notification) =>
 				{
 					return (
-						<Appear key={notification.id} duration={250}>
+						<Appear key={notification.id} duration={1000}>
 							<div
 								className={classnames('notification', notification.type)}
 								onClick={() => onClick(notification.id)}
