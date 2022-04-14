@@ -403,7 +403,7 @@ export default class PeerView extends React.Component
 								<EditableInput
 									value={peer.displayName}
 									propName='displayName'
-									className='display-name editable'
+									className='display-name'
 									classLoading='loading'
 									classInvalid='invalid'
 									shouldBlockWhileLoading
